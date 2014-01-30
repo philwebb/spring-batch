@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package org.springframework.batch.core.configuration.annotation;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
 
+import org.springframework.batch.core.PooledEmbeddedDataSource;
 import org.springframework.batch.core.Step;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -31,24 +33,25 @@ import org.springframework.util.ClassUtils;
 
 @Configuration
 public class DataSourceConfiguration {
-	
+
 	@Autowired
 	private Environment environment;
-	
+
 	@Autowired
 	private ResourceLoader resourceLoader;
-	
+
 	@PostConstruct
 	protected void initialize() {
 		ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
-		populator.addScript(resourceLoader.getResource(ClassUtils.addResourcePathToPackagePath(Step.class, "schema-hsqldb.sql")));
+		populator.addScript(resourceLoader.getResource(ClassUtils.addResourcePathToPackagePath(
+				Step.class, "schema-hsqldb.sql")));
 		populator.setContinueOnError(true);
 		DatabasePopulatorUtils.execute(populator, dataSource());
 	}
-	
+
 	@Bean
 	public DataSource dataSource() {
-		return new EmbeddedDatabaseFactory().getDatabase();
+		return new PooledEmbeddedDataSource(new EmbeddedDatabaseFactory().getDatabase());
 	}
 
 }
