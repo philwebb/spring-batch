@@ -33,7 +33,7 @@
 		</developer>
 	</developers>
 	<properties>
-		<spring.framework.version>3.2.0.RELEASE</spring.framework.version>
+		<spring.framework.version>3.2.1.RELEASE</spring.framework.version>
 		<spring.amqp.version>1.1.2.RELEASE</spring.amqp.version>
 		<junit.version>4.10</junit.version>
 		<bundlor.version>1.0.0.RELEASE</bundlor.version>
@@ -559,10 +559,10 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
-			<dependency>
+ 			<dependency>
 				<groupId>org.apache.ibatis</groupId>
 				<artifactId>ibatis-sqlmap</artifactId>
-				<version>2.3.0</version>
+				<version>2.3.4.726</version>
 				<optional>true</optional>
 			</dependency>
 			<dependency>
